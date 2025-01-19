@@ -1,7 +1,8 @@
-#include <stdio.h>
-#include <string.h>
-#include <stdbool.h>
-#include <stdlib.h>
+// Include necessary libraries
+#include <stdio.h> // for input/output operations
+#include <string.h> // for string manipulation functions
+#include <stdbool.h> // for boolean data type
+#include <stdlib.h> // for memory allocation and other functions
 
 // Define a structure to hold account information
 struct Account {
