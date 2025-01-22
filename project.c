@@ -1,8 +1,7 @@
-// Include necessary libraries
-#include <stdio.h> // for input/output operations
-#include <string.h> // for string manipulation functions
-#include <stdbool.h> // for boolean data type
-#include <stdlib.h> // for memory allocation and other functions
+#include <stdio.h>    // Standard input/output library
+#include <string.h>   // String manipulation functions
+#include <stdbool.h>  // Boolean type and values
+#include <stdlib.h>   // Standard library for memory allocation, process control, etc.
 
 // Define a structure to hold account information
 struct Account {
@@ -29,6 +28,7 @@ void displayAccountDetails();
 void exitSystem();
 bool getConfirmation(const char *message);
 int getValidatedInteger(const char *message);
+float getValidatedFloat(const char *message);
 
 int main() {
     int choice;
@@ -130,10 +130,7 @@ void logoutAccount() {
 void depositMoney() {
     if (loggedInIndex == -1) return;
 
-    float amount;
-    printf("Enter amount to deposit: ");
-    scanf("%f", &amount);
-
+    float amount = getValidatedFloat("Enter amount to deposit: ");
     if (amount > 0) {
         accounts[loggedInIndex].balance += amount;
         printf("Deposit successful! New balance: %.2f\n", accounts[loggedInIndex].balance);
@@ -182,9 +179,7 @@ void transferMoney() {
         return;
     }
 
-    float amount;
-    printf("Enter amount to transfer: ");
-    scanf("%f", &amount);
+    float amount = getValidatedFloat("Enter amount to transfer: ");
 
     if (amount > 0 && accounts[loggedInIndex].balance >= amount) {
         accounts[loggedInIndex].balance -= amount;
@@ -231,6 +226,22 @@ int getValidatedInteger(const char *message) {
     while (true) {
         printf("%s", message);
         if (scanf("%d", &value) == 1) {
+            return value;
+        } else {
+            // Clear invalid input
+            scanf("%s", buffer);
+            printf("Invalid input. Please enter a number.\n");
+        }
+    }
+}
+
+float getValidatedFloat(const char *message) {
+    float value;
+    char buffer[100];
+
+    while (true) {
+        printf("%s", message);
+        if (scanf("%f", &value) == 1) {
             return value;
         } else {
             // Clear invalid input
