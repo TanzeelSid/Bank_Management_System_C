@@ -143,13 +143,19 @@ void depositMoney() {
     }
 }
 
+/**
+ * Withdraws a specified amount of money from the currently logged-in account,
+ * if the account is logged in and has sufficient balance. Prompts the user
+ * to enter the amount to withdraw and verifies that the input is a valid float.
+ * If the withdrawal is successful, the account balance is updated and a success
+ * message is displayed. Otherwise, an error message is shown. At the end, prompts
+ * the user to return to the main menu or exit the system.
+ */
+
 void withdrawMoney() {
     if (loggedInIndex == -1) return;
 
-    float amount;
-    printf("Enter amount to withdraw: ");
-    scanf("%f", &amount);
-
+    float amount = getValidatedFloat("Enter amount to withdraw: ");
     if (amount > 0 && accounts[loggedInIndex].balance >= amount) {
         accounts[loggedInIndex].balance -= amount;
         printf("Withdrawal successful! New balance: %.2f\n", accounts[loggedInIndex].balance);
@@ -161,6 +167,16 @@ void withdrawMoney() {
         exitSystem();
     }
 }
+
+/**
+ * Allows the user to transfer money from their account to another account,
+ * if they are logged in and have sufficient balance. Prompts the user to enter
+ * the account number to transfer to and the amount to transfer. Verifies that
+ * the input is valid and that the account exists. If the transfer is successful,
+ * the account balance is updated and a success message is displayed. Otherwise,
+ * an error message is shown. At the end, prompts the user to return to the main
+ * menu or exit the system.
+ */
 
 void transferMoney() {
     if (loggedInIndex == -1) return;
